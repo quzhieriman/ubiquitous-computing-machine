@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPM Official Attendance Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">SPM GLOBAL EXAM 2026</div>
+    <div class="nav-actions">
+        <button id="admin-gate-btn" onclick="showSection('admin-view')">Admin Access</button>
+        <button id="logout-btn" class="hidden" onclick="logout()">Logout</button>
+    </div>
+</nav>
+
+<div class="container">
+    <section id="login-view" class="card">
+        <h2>School Portal Login</h2>
+        <div class="form-group">
+            <input type="text" id="login-code" placeholder="School Code (e.g., BEA1234)">
+            <input type="password" id="login-pass" placeholder="School Password">
+            <button class="btn-primary" onclick="login()">Login</button>
+        </div>
+    </section>
+
+    <section id="attendance-view" class="hidden">
+        <div class="header-flex">
+            <h2 id="current-school-display">School Name</h2>
+            <div class="status-badge">Live Syncing...</div>
+        </div>
+        <div id="student-list" class="list-container">
+            </div>
+    </section>
+
+    <section id="admin-view" class="hidden">
+        <h2>Admin Dashboard</h2>
+        <div class="admin-grid">
+            <div class="card sub-card">
+                <h3>Control: Add School</h3>
+                <input type="text" id="adm-name" placeholder="School Name">
+                <input type="text" id="adm-code" placeholder="New Code">
+                <input type="text" id="adm-pass" placeholder="Set Password">
+                <button class="btn-primary" onclick="adminCreateSchool()">Create School</button>
+            </div>
+            
+            <div class="card sub-card">
+                <h3>Control: Add Student</h3>
+                <input type="text" id="adm-student" placeholder="Student Full Name">
+                <button class="btn-primary" onclick="adminAddStudent()">Add to Current School</button>
+            </div>
+        </div>
+
+        <div class="card report-card">
+            <h3>Global Absentee List (The People Who Didn't Show Up)</h3>
+            <button class="btn-refresh" onclick="fetchAbsentees()">Generate Report</button>
+            <div id="absentee-report"></div>
+        </div>
+        <button class="btn-back" onclick="showSection('login-view')">Back to Home</button>
+    </section>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
